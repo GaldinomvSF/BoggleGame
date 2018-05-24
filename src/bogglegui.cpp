@@ -1,26 +1,12 @@
 /*
- * CS 106B Boggle
- * This file implements the graphics support functions for Boggle.
+ * * This file has not been modified from the original task provided by CS106B Stanford
  *
- * Please do not modify this provided file. Your turned-in files should work
- * with an unmodified version of all provided code files.
+ * Version: Sat 2014/02/05
+ * Author : Marty Stepp
  *
- * Version: Tue 2014/02/10
  * Author : original version by Eric Roberts and Julie Zelenski;
  *          modified by Marty Stepp for Autumn 2013 and Winter 2014
  *
- * Recent Changes:
- * - 2014/02/10: Significant refactoring to improve performance and robustness.
- *               GUI was creating tons of wasted rectangles and shapes and not
- *               cleaning them up.  Caused increasing slowdown over time.
- *               GUI now uses stateful shapes that persist.
- *
- * Known open issue: Leaks memory for all GObjects created.  Oops.
- * I would fix this, but I don't have time to figure out whether
- * freeing them would break things in the Java Back End.  -- Marty
- */
-
-/*
  * General implementation notes
  * ----------------------------
  * This file implements the graphics support functions for the Boggle

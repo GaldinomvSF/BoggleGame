@@ -1,8 +1,17 @@
-// This is a .h file you will edit and turn in.
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
+/*
+ *
+ * This file was created in response to CS106B - Assignment 4 - Stanford University
+ *
+ * Author: Marcus Galdino
+ * Date: May 23, 2018
+ *
+ * Implementation Notes: This file manages the game interacting with the user and the class Boggle that has all the logic for the games.
+ * Structure:
+ *           BogglePlay.cpp  -> Manages the Game structure: user input, UI, and console
+ *           Boggle.cpp      -> Keeps the logic: Sets Board, find words and score players
+ *           Boggle.h        -> Defines class Boggle with methods and variables for the whole game
+ *           BoggleGUI.cpp   -> User Interface provided by Stanford University
+ */
 
 #ifndef _boggle_h
 #define _boggle_h
@@ -31,6 +40,7 @@ public:
 
     void getNeighbors(int k, int l);
     void updatehumanWords(string word);
+    void computerTurnAnimation(string prefix);
 
     char getLetter(int row, int col);
     Set<string> computerWordSearch();

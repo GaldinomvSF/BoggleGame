@@ -1,8 +1,17 @@
-// This is a .cpp file you will edit and turn in.
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
+/*
+ *
+ * This file was created in response to CS106B - Assignment 4 - Stanford University
+ *
+ * Author: Marcus Galdino
+ * Date: May 23, 2018
+ *
+ * Implementation Notes: This file manages the game interacting with the user and the class Boggle that has all the logic for the games.
+ * Structure:
+ *           BogglePlay.cpp  -> Manages the Game structure: user input, UI, and console
+ *           Boggle.cpp      -> Keeps the logic: Sets Board, find words and score players
+ *           Boggle.h        -> Defines class Boggle with methods and variables for the whole game
+ *           BoggleGUI.cpp   -> User Interface provided by Stanford University
+ */
 
 #include "Boggle.h"
 #include "bogglegui.h"
@@ -11,11 +20,11 @@
 #include <chrono>
 #include <thread>
 
-using namespace std::this_thread; // sleep_for, sleep_until
-using namespace std::chrono; // nanoseconds, system_clock, seconds
+using namespace std::this_thread;   // sleep_for, sleep_until
+using namespace std::chrono;        // nanoseconds, system_clock, seconds
 
-const int SIZE = 4;
-const int LENGTH = 6;
+const int SIZE = 4;          //Sets line for the Cube 4X4
+const int LENGTH = 6;        //Sets number of letters that can be choosen per cube
 
 // letters on all 6 sides of every cube
 static string CUBES[16] = {
@@ -23,15 +32,6 @@ static string CUBES[16] = {
     "AOOTTW", "CIMOTU", "DEILRX", "DELRVY",
     "DISTTY", "EEGHNW", "EEINSU", "EHRTVW",
     "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"
-};
-
-// letters on every cube in 5x5 "Big Boggle" version (extension)
-static string BIG_BOGGLE_CUBES[25] = {
-    "AAAFRS", "AAEEEE", "AAFIRS", "ADENNN", "AEEEEM",
-    "AEEGMU", "AEGMNN", "AFIRSY", "BJKQXZ", "CCNSTW",
-    "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT",
-    "DHHLOR", "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU",
-    "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"
 };
 
 
@@ -62,8 +62,8 @@ Grid<string> Boggle::initBoard(int x,int y,string boardText){
                 count++;
             }
         }
+
         shuffle(temp);
-        cout << temp.toString2D() << endl;
 
         /* Randomly chooses the front letter of each Cube */
         for (int i=0; i !=x ; i++){
@@ -73,7 +73,6 @@ Grid<string> Boggle::initBoard(int x,int y,string boardText){
                 newboard.set(i,j,shuffled.substr(1,1));
             }
         }
-        cout << newboard.toString2D() << endl;
     }
     else{
         //Sets up the Board based on the User's input
@@ -85,7 +84,6 @@ Grid<string> Boggle::initBoard(int x,int y,string boardText){
                 count++;
             }
         }
-        cout << newboard.toString2D() << endl;
     }
 
     return newboard;
@@ -227,16 +225,11 @@ Set<string> Boggle::computerWordSearch() {
         if(!wordsFoundHuman.contains(prefix)){
             if (!result.contains(prefix)){
                 result.add(prefix);
-                computerscore = computerscore + (prefix.length()-3);
-                BoggleGUI::setStatusMessage("Computer found a word : " + prefix);
-                sleep_for(seconds(2));
-                BoggleGUI::recordWord(prefix, BoggleGUI::COMPUTER);
-                BoggleGUI::setScore(getScoreComputer(), BoggleGUI::COMPUTER);
+                computerTurnAnimation(prefix);
                 wordsComputer.add(prefix);
             }
             return result;
         }
-
     }
     else{
         //On first execution all board is a neighbor
@@ -290,6 +283,16 @@ Set<string> Boggle::computerWordSearch() {
     }
 
     return result;
+}
+
+void Boggle::computerTurnAnimation(string prefix){
+
+    computerscore = computerscore + (prefix.length()-3);
+    BoggleGUI::setStatusMessage("Computer found a word : " + prefix);
+    sleep_for(seconds(2));
+    BoggleGUI::recordWord(prefix, BoggleGUI::COMPUTER);
+    BoggleGUI::setScore(getScoreComputer(), BoggleGUI::COMPUTER);
+
 }
 
 /* The Following functions test conditions for words the player tried
@@ -401,10 +404,12 @@ void Boggle::updatehumanWords(string word){
 int Boggle::getScoreHuman() {
     return humanscore;
 }
+
 // 3) Return number of words found by human
 int Boggle::getNumWordsHuman() {
     return wordsFoundHuman.size();
 }
+
 // 4) Return list of words found by human
 string Boggle::getWordsHuman(){
     return wordsFoundHuman.toString();
@@ -424,11 +429,16 @@ int Boggle::getScoreComputer() {
     return computerscore;
 }
 
-
 //This function draws a grid for the board on the console
 ostream& operator<<(ostream& out, Boggle& boggle) {
 
-
-
+    for (int i=0; i !=SIZE ; i++){
+        out << "+---+---+---+---+" << endl;
+        for (int j=0; j != SIZE ;j++){
+            out << "| " << boggle.board.get(i,j) << " " ;
+        }
+        out << "|" << endl  ;
+    }
+    out << "+---+---+---+---+" << endl;
     return out;
 }
