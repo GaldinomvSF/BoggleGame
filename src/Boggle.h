@@ -41,6 +41,7 @@ public:
     void getNeighbors(int k, int l);
     void updatehumanWords(string word);
     void computerTurnAnimation(string prefix);
+    void clearPastGames();
 
     char getLetter(int row, int col);
     Set<string> computerWordSearch();

@@ -127,6 +127,7 @@ bool Boggle::checkWord(string word) {
                 wordsReceivedHuman.add(word);
                 if (humanWordSearch(word)){
                     updatehumanWords(word);
+                    clearPastGames();
                     return true;
                 }
                 else{
@@ -140,7 +141,7 @@ bool Boggle::checkWord(string word) {
     return false;
 }
 
-/* HUMAN TURN:
+/* HUMAN's TURN:
  * This function uses Recursive backtracking to form words within the cube based on human input
  * Important Variables:
  *           Localcopy:     Ensures Data Integrity during recursion calls
@@ -204,7 +205,7 @@ bool Boggle::humanWordSearch(string word) {
     return false;
 }
 
-/* COMPUTER TURN:
+/* COMPUTER's TURN:
  * Uses Exaustive Backtraking to find all words left by the human player
  * Important Variables:
  *           Localcopy:     Ensures Data Integrity during recursion calls
@@ -223,7 +224,7 @@ Set<string> Boggle::computerWordSearch() {
 
     if (dict.contains(prefix) && prefix.length() >= 4 ){
         if(!wordsFoundHuman.contains(prefix)){
-            if (!result.contains(prefix)){
+            if (!wordsComputer.contains(prefix)){
                 result.add(prefix);
                 computerTurnAnimation(prefix);
                 wordsComputer.add(prefix);
@@ -389,6 +390,12 @@ void Boggle::getNeighbors(int i, int j){
             }
         }
     }
+}
+
+//Resets Variables for a new game
+void Boggle::clearPastGames(){
+    neighbor.clear();
+    Visited = resetVisited();
 }
 
 
