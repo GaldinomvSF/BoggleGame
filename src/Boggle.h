@@ -31,29 +31,29 @@ public:
     Grid<string> initBoard(int x,int y,string boardText);
     Grid<bool> resetVisited();
 
-    bool isInLexicon(string input);
-    bool prefixLexicon(string input);
-    bool isInCube(string input);
+    bool isInLexicon(const string input);
+    bool prefixLexicon(const string input);
+    bool isInCube(const string input);
     bool testIfVisited();
-    bool checkWord(string word);
+    bool checkWord(const string word);
     bool humanWordSearch(string word);
 
-    void getNeighbors(int k, int l);
-    void updatehumanWords(string word);
+    void getNeighbors(const int k, const int l);
+    void updatehumanWords(const string word);
     void computerTurnAnimation(string prefix);
     void clearPastGames();
 
-    char getLetter(int row, int col);
+    char getLetter(const int row, const int col);
     Set<string> computerWordSearch();
     string setLabels();
 
     int getScoreHuman();
     int getNumWordsHuman();
-    string getWordsHuman();
+    const string getWordsHuman();
 
     int getScoreComputer();
-    int getNumWordsComputer();
-    string getWordsComputer();
+    int  getNumWordsComputer();
+    const string getWordsComputer();
 
     friend ostream& operator<<(ostream& out, Boggle& boggle);
 

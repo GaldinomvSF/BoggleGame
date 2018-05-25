@@ -286,7 +286,7 @@ Set<string> Boggle::computerWordSearch() {
     return result;
 }
 
-void Boggle::computerTurnAnimation(string prefix){
+void Boggle::computerTurnAnimation(const string prefix){
 
     computerscore = computerscore + (prefix.length()-3);
     BoggleGUI::setStatusMessage("Computer found a word : " + prefix);
@@ -304,7 +304,7 @@ void Boggle::computerTurnAnimation(string prefix){
  */
 
 // 1) Test if word is on English dictionary
-bool Boggle::isInLexicon(string input){
+bool Boggle::isInLexicon(const string input){
     if (dict.contains(input)){
         return true;
     }
@@ -312,7 +312,7 @@ bool Boggle::isInLexicon(string input){
 }
 
 // 2) Test if prefix is on English dictionary
-bool Boggle::prefixLexicon(string input){
+bool Boggle::prefixLexicon(const string input){
     if (dict.containsPrefix(input)){
         return true;
     }
@@ -332,7 +332,7 @@ bool Boggle::testIfVisited(){
 }
 
 //4) Test if word exist in the cube (letter by letter)
-bool Boggle::isInCube(string input) {
+bool Boggle::isInCube(const string input) {
     int found = 0;
     string cubevalues = board.toString();
 
@@ -369,7 +369,7 @@ Grid<bool> Boggle::resetVisited(){
 }
 
 //Return a letter based on a given coordinate (row,col)
-char Boggle::getLetter(int row, int col) {
+char Boggle::getLetter(const int row, const int col) {
     string front = board.get(row,col);
     return front[0];
 }
@@ -418,7 +418,7 @@ int Boggle::getNumWordsHuman() {
 }
 
 // 4) Return list of words found by human
-string Boggle::getWordsHuman(){
+const string Boggle::getWordsHuman(){
     return wordsFoundHuman.toString();
 }
 
@@ -427,7 +427,7 @@ int Boggle::getNumWordsComputer() {
     return wordsComputer.size();
 }
 // 6) Return the list of words found by Computer
-string Boggle::getWordsComputer(){
+const string Boggle::getWordsComputer(){
     return wordsComputer.toString();
 }
 

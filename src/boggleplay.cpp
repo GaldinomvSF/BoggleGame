@@ -112,18 +112,22 @@ void playOneGame(Lexicon& dictionary) {
 
     BoggleGUI::clearHighlighting();
     cout << "It's my Turn!" << endl << endl << Board << endl << "Looking up words" << endl;
+    BoggleGUI::setStatusMessage("It's my Turn!");
     Set<string> result = Board.computerWordSearch();
     cout << "My words: (" << Board.getNumWordsComputer() << ") " << Board.getWordsComputer() << endl << "My score: (" << Board.getScoreComputer() <<") " << endl;
 
-    BoggleGUI::setStatusMessage("Calculating final score...");
 
     if (Board.getScoreHuman() > Board.getScoreComputer()){
         cout << "Congratulations You beat me!" << endl;
         BoggleGUI::setStatusMessage("Congratulations You beat me!");
     }
-    else{
+    else if(Board.getScoreHuman() < Board.getScoreComputer()){
         cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
         BoggleGUI::setStatusMessage("Ha ha ha, I destroyed you. Better luck next time, puny human!");
+    }
+    else{
+        cout << "Good job, You are as good as me!" << endl;
+        BoggleGUI::setStatusMessage("Good Job, You are as good me!");
     }
 }
 
