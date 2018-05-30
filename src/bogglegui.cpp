@@ -16,6 +16,7 @@
  * and many of the helper functions do not require individual comments.
  * For descriptions of the behavior of the exported functions,
  * please see the interface file.
+ *
  */
 
 #include <string>
